@@ -11,4 +11,10 @@ object Tree {
       case Leaf(_) => 1
       case Branch(l, r) => size(l) + size(r)
     }
+
+  def max(t: Tree[Int]): Int =
+    t match {
+      case Leaf(x) => x
+      case Branch(l, r) => max(l) max max(r)
+    }
 }
