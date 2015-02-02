@@ -146,4 +146,23 @@ object List { // `List` companion object. Contains functions for creating and wo
       case (_, Nil) => Nil
       case (Cons(x, xs), Cons(y, ys)) => Cons(f(x, y), zipWith(xs, ys)(f))
     }
+
+  def startsWith[A](l: List[A], prefix: List[A]): Boolean =
+    (l, prefix) match {
+      case (_, Nil) => true
+      case (Nil, _) => false
+      case (Cons(x, xs), Cons(y, ys)) => x == y && startsWith(xs, ys)
+    }
+
+  def isEmpty[A](l: List[A]): Boolean =
+    l match {
+      case Nil => true
+      case _ => false
+    }
+
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean =
+    sup match {
+      case Nil => isEmpty(sub)
+      case Cons(x, xs) => startsWith(sup, sub) || startsWith(xs, sub)
+    }
 }
