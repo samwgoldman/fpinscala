@@ -2,6 +2,8 @@ package fpinscala.laziness
 
 import Stream._
 trait Stream[+A] {
+  def toList: List[A] =
+    foldRight(List[A]())(_ :: _)
 
   def foldRight[B](z: => B)(f: (A, => B) => B): B = // The arrow `=>` in front of the argument type `B` means that the function `f` takes its second argument by name and may choose not to evaluate it.
     this match {
