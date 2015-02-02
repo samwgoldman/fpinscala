@@ -132,4 +132,11 @@ object List { // `List` companion object. Contains functions for creating and wo
 
   def filter2[A](l: List[A])(f: A => Boolean): List[A] =
     flatMap(l)(x => if (f(x)) List(x) else Nil)
+
+  def addLists(xs: List[Int], ys: List[Int]): List[Int] =
+    (xs, ys) match {
+      case (Nil, _) => Nil
+      case (_, Nil) => Nil
+      case (Cons(x, xs), Cons(y, ys)) => Cons(x + y, addLists(xs, ys))
+    }
 }
