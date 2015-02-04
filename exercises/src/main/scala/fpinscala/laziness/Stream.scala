@@ -80,6 +80,13 @@ trait Stream[+A] {
       case Cons(a, as) => Some(as(), as())
       case _ => None
     })
+
+  def scanRight[B](z: => B)(f: (A, => B) => B): Stream[B] =
+    foldRight(Stream(z)) {
+      case (a, bs @ Cons(h, _)) => {
+        cons(f(a, h()), bs)
+      }
+    }
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
